@@ -17,6 +17,7 @@ public class Actividad4 {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        System.out.println("Hola mundo");
         Scanner entrada = new Scanner(System.in);
         
         System.out.print("1:- Codigo Morse \n2:- Star Wars \n3:- Quizz Sobre Java");
