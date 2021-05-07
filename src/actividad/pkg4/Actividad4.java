@@ -17,73 +17,55 @@ public class Actividad4 {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        System.out.println("Hola mundo");
-        Scanner entrada = new Scanner(System.in);
-        
-        System.out.print("1:- Codigo Morse \n2:- Star Wars \n3:- Quizz Sobre Java");
-        System.out.println();
-        System.out.println();
-        System.out.print("Introduce un número: ");
-        int numero = entrada.nextInt();
+        Scanner st = new Scanner(System.in);
+        System.out.println("Introduzca un número de las siguentes opciones: ");
+        System.out.println("1:- Impresion en Codigo Morse");
+        System.out.println("2:- Personajes de Star Wars ");
+        System.out.println("3:- Quizz Sobre Java");
+        int numero = st.nextInt();
         System.out.println();
         //metodo donde se encuentra el Switch
         escoger(numero);
 
     }
-    
-    //Escoger un numero para el case 
-    public static void escoger(int numeroEscogido){
-        
-        Scanner entrada = new Scanner(System.in);
-        
-        switch(numeroEscogido){
+    public static void escoger(int numeroIndicado){
+        Scanner st = new Scanner(System.in);
+        switch(numeroIndicado){
             case 1:
-                
-                System.out.println("*******************************************");
-                System.out.println("*************** Clave Morse ***************");
-                System.out.println("*******************************************");
+                System.out.println("-------------------------------------------");
+                System.out.println("||||||||||||||| Clave Morse |||||||||||||||");
+                System.out.println("-------------------------------------------");
                 System.out.println();
-                
                 System.out.println("Introduce una frase: ");
-                String frase = entrada.nextLine().toUpperCase();
-                //se convirtio la frase a un arreglo de caracteres
+                String frase = st.nextLine().toUpperCase();
                 char carFrase[] = frase.toCharArray();
-                //se agrego el metodo donde esta la matriz
                 arrayList();
-                //bucle para imprimir el codigo morse
                 bucle(frase, carFrase);
                 System.out.println(Pago(frase, carFrase));
                 break;
                 
             case 2:
                 
-                System.out.println("*******************************************");
-                System.out.println("**************** Star Wars ****************");
-                System.out.println("*******************************************");
+                System.out.println("-------------------------------------------");
+                System.out.println("||||||||| Personajes de Star Wars |||||||||");
+                System.out.println("-------------------------------------------");
                 System.out.println();
                 
                 System.out.println("Introduce un genero");
                 System.out.println("male, female, n/a, hermaphrodite");
-                String genero = entrada.nextLine();
-                //matriz de los personajes
+                String genero = st.nextLine();
                 Personajes();
-                //bucle donde se imprimiran los personajes correspondientes
                 recorrido(genero);
                 break;
                 
             case 3:
                 
-                System.out.println("******************************************");
-                System.out.println("************ Quizz sobre Java ************");
-                System.out.println("******************************************");
+                System.out.println("-------------------------------------------");
+                System.out.println("||||||||||||||| Quizz  Java |||||||||||||||");
+                System.out.println("-------------------------------------------");
                 System.out.println();
-                
-                //matriz de las preguntas
                 preguntasQuizz();
-                //matriz de los incisos
                 incisosQuizz();
-                //bucle donde se recorreran las preguntas y donde preguntaran las
-                //respuestas y se incrementara el contador
                 recorrido();
                 System.out.println();
                 System.out.println("Obtuviste un " + contador + "0 de Calificacion");
@@ -93,14 +75,7 @@ public class Actividad4 {
                 System.out.println("Introduce un numero correcto");
         
         }
-    }
-    
-    /*
-    ****************************************************************************
-    ***************************** Codigo Morse *********************************
-    ****************************************************************************
-    */
-    
+    }    
     public static String[][] aCodigo;
     
     public static void arrayList(){
@@ -131,8 +106,7 @@ public class Actividad4 {
         aCodigo[23][0] = "X";
         aCodigo[24][0] = "Y";
         aCodigo[25][0] = "Z";
-        // Arreglo con representación del Alfabeto
-        // En código Morse
+//------------------------------------------------------------------------------
         aCodigo[0][1] = ".-";
         aCodigo[1][1] = "-...";
         aCodigo[2][1] = "-.-.";
@@ -160,23 +134,15 @@ public class Actividad4 {
         aCodigo[24][1] = "-.--";
         aCodigo[25][1] = "--..";
     }
-
     public static String caracter(char car) {
-        //el carater dado lo convierte a int correspondiente a su codigo ascii;
         int numCa = (int) car;
-        //ejemplo como parametro paso B entonces su codigo es 66
-        //aCodgio[66-65][0] = aCodigo[1][0] = B
-        //lo mismo sucede con el otro pero el otro pertenece a clave morse
         return aCodigo[numCa - 65][0] + " " + aCodigo[numCa - 65][1];
     }
     
     public static void bucle(String frase, char carFrase[]){
-        //bucle para imprimir el codigo
         for (int i = 0; i < frase.length(); i++) {
-            //si ejemplo: carFrase[5] = " "; entonces entrara y dara un enter
             if(String.valueOf(carFrase[i]).equals(" ")){
                 System.out.println("");
-            //si el if no se cumple imprimira el caracter correspondiente
             } else {
                 System.out.println(caracter(carFrase[i]));
             }
@@ -184,183 +150,149 @@ public class Actividad4 {
     }
     
     public static String Pago(String frase, char carFrase[]){
-        //inicialice con uno porque solo me contara los espacios y la primera 
-        //palabra no hay espacio asi que al inicializarlo con uno ya me estaria
-        //contando una palabra minimo
         int contador = 1;
         int precio = 0;
-        //un bucle para obtener el contador de las veces que hay espacios
-        //los espacios indican una palabra nueva
         for (int i = 0; i < frase.length(); i++) {
             if(String.valueOf(carFrase[i]).equals(" ")){
                 contador++;
             }
         }
-        //cree un if mientras que el contador sea igual o menor a 5 son 10 pesos
         if(contador <= 5){
             precio = 10;
-        //mientras el contador sea mayor
-        //el contador - 5 y el resultado * 3 y se le sumara 10
-        //ejemplo de 8 palabras
-        //8 - 5 = 3 * 3 = 9 + 10 = 19 pesos
         } else{
             precio = ((contador - 5) * 3) + 10;
         }
         return "Numero de palabras: " + contador + "\n" + "Son $" + precio + " pesos";
     }
-    
-    /*
-    ****************************************************************************
-    ****************************** Star Wars ***********************************
-    ****************************************************************************
-    */
-    
-    static String[][] aPersonajes; 
+    static String[][] allPersonajes; 
     static String sexo;
-    
     public static void Personajes(){
-        
-        aPersonajes = new String[16][3];
+        allPersonajes = new String[16][3];
             
-        aPersonajes[0][0] = "Luke Skywalker";
-        aPersonajes[0][1] = "172";
-        aPersonajes[0][2] = "male";
-        aPersonajes[1][0] = "R2-D2";
-        aPersonajes[1][1] = "96";
-        aPersonajes[1][2] = "n/a";
-        aPersonajes[2][0] = "C-3PO";
-        aPersonajes[2][1] = "167";
-        aPersonajes[2][2] = "n/a";
-        aPersonajes[3][0] = "Darth Vader";
-        aPersonajes[3][1] = "202";
-        aPersonajes[3][2] = "male";
-        aPersonajes[4][0] = "Leia Organa";
-        aPersonajes[4][1] = "150";
-        aPersonajes[4][2] = "female";
-        aPersonajes[5][0] = "Owen Lars";
-        aPersonajes[5][1] = "178";
-        aPersonajes[5][2] = "male";
-        aPersonajes[6][0] = "Beru Whitesun lars";
-        aPersonajes[6][1] = "165";
-        aPersonajes[6][2] = "female";
-        aPersonajes[7][0] = "R5-D4";
-        aPersonajes[7][1] = "97";
-        aPersonajes[7][2] = "n/a";
-        aPersonajes[8][0] = "Biggs Darklighter";
-        aPersonajes[8][1] = "183";
-        aPersonajes[8][2] = "male";
-        aPersonajes[9][0] = "Obi-Wan Kenobi";
-        aPersonajes[9][1] = "182";
-        aPersonajes[9][2] = "male";
-        aPersonajes[10][0] = "Yoda";
-        aPersonajes[10][1] = "66";
-        aPersonajes[10][2] = "male";
-        aPersonajes[11][0] = "Jek Tono Porkins";
-        aPersonajes[11][1] = "180";
-        aPersonajes[11][2] = "male";
-        aPersonajes[12][0] = "Jabba Desilijic Tiure";
-        aPersonajes[12][1] = "175";
-        aPersonajes[12][2] = "hermaphrodite";
-        aPersonajes[13][0] = "Han Solo";
-        aPersonajes[13][1] = "180";
-        aPersonajes[13][2] = "male";
-        aPersonajes[14][0] = "Chewbacca";
-        aPersonajes[14][1] = "228";
-        aPersonajes[14][2] = "male";
-        aPersonajes[15][0] = "Anakin Skywalker";
-        aPersonajes[15][1] = "188";
-        aPersonajes[15][2] = "male"; 
+        allPersonajes[0][0] = "Luke Skywalker";
+        allPersonajes[0][1] = "172";
+        allPersonajes[0][2] = "male";
+        allPersonajes[1][0] = "R2-D2";
+        allPersonajes[1][1] = "96";
+        allPersonajes[1][2] = "n/a";
+        allPersonajes[2][0] = "C-3PO";
+        allPersonajes[2][1] = "167";
+        allPersonajes[2][2] = "n/a";
+        allPersonajes[3][0] = "Darth Vader";
+        allPersonajes[3][1] = "202";
+        allPersonajes[3][2] = "male";
+        allPersonajes[4][0] = "Leia Organa";
+        allPersonajes[4][1] = "150";
+        allPersonajes[4][2] = "female";
+        allPersonajes[5][0] = "Owen Lars";
+        allPersonajes[5][1] = "178";
+        allPersonajes[5][2] = "male";
+        allPersonajes[6][0] = "Beru Whitesun lars";
+        allPersonajes[6][1] = "165";
+        allPersonajes[6][2] = "female";
+        allPersonajes[7][0] = "R5-D4";
+        allPersonajes[7][1] = "97";
+        allPersonajes[7][2] = "n/a";
+        allPersonajes[8][0] = "Biggs Darklighter";
+        allPersonajes[8][1] = "183";
+        allPersonajes[8][2] = "male";
+        allPersonajes[9][0] = "Obi-Wan Kenobi";
+        allPersonajes[9][1] = "182";
+        allPersonajes[9][2] = "male";
+        allPersonajes[10][0] = "Yoda";
+        allPersonajes[10][1] = "66";
+        allPersonajes[10][2] = "male";
+        allPersonajes[11][0] = "Jek Tono Porkins";
+        allPersonajes[11][1] = "180";
+        allPersonajes[11][2] = "male";
+        allPersonajes[12][0] = "Jabba Desilijic Tiure";
+        allPersonajes[12][1] = "175";
+        allPersonajes[12][2] = "hermaphrodite";
+        allPersonajes[13][0] = "Han Solo";
+        allPersonajes[13][1] = "180";
+        allPersonajes[13][2] = "male";
+        allPersonajes[14][0] = "Chewbacca";
+        allPersonajes[14][1] = "228";
+        allPersonajes[14][2] = "male";
+        allPersonajes[15][0] = "Anakin Skywalker";
+        allPersonajes[15][1] = "188";
+        allPersonajes[15][2] = "male"; 
     }
-    
     public static void recorrido(String genero){
         sexo = genero;
-        for (int i = 0; i < aPersonajes.length; i++) {
-            //si el personaje es igual al sexo introducido
-            //imprimira los datos
-            if(aPersonajes[i][2].equals(sexo)){
-                System.out.println(aPersonajes[i][0]);
-                System.out.println(aPersonajes[i][1]);
-                System.out.println(aPersonajes[i][2]);
+        for (int i = 0; i < allPersonajes.length; i++) {
+            if(allPersonajes[i][2].equals(sexo)){
+                System.out.println(allPersonajes[i][0]);
+                System.out.println(allPersonajes[i][1]);
+                System.out.println(allPersonajes[i][2]);
                 System.out.println();
             }
         }
-    }
-    
-    /*
-    ****************************************************************************
-    *************************** Quizz de Java **********************************
-    ****************************************************************************
-    */
-    
+    }    
     public static String[][] preguntas;
     public static String[][] incisos;
     public static int contador;
-
     public static void preguntasQuizz() {
         preguntas = new String[10][2];
-        preguntas[0][0] = "¿Cuál es la sintaxis correcta para generar Hello World en Java?";
+        preguntas[0][0] = "¿Cuál es la sintaxis correcta para imprimir un comentario en Java?";
         preguntas[0][1] = "0";
-        preguntas[1][0] = "¿Cómo se insertan comentarios de una línea en Java?";
+        preguntas[1][0] = "¿De que manera se insertan comentarios en cualquier línea en Java?";
         preguntas[1][1] = "1";
-        preguntas[2][0] = "¿Qué tipo de datos se utiliza para crear una variable que almacene texto?";
+        preguntas[2][0] = "¿Qué tipo de datos se utiliza para crear una variable que almacene texto en Java?";
         preguntas[2][1] = "2";
-        preguntas[3][0] = "¿Cómo se crea una variable numérica que asigne el valor 5?";
+        preguntas[3][0] = "¿De que manera se crea una variable que almacene un numero entero como el 5?";
         preguntas[3][1] = "0";
-        preguntas[4][0] = "¿Qué operador se utiliza para comparar dos valores?";
+        preguntas[4][0] = "¿Qué operador se utiliza para comparar o asignar dos valores en Java?";
         preguntas[4][1] = "1";
         preguntas[5][0] = "¿Para declarar un arreglo, la variable se define como tipo?";
         preguntas[5][1] = "2";
-        preguntas[6][0] = "¿Qué instrucción se usa para crear una clase en Java?";
+        preguntas[6][0] = "¿De que manera se crea una instrucción que se usa para crear una clase en Java?";
         preguntas[6][1] = "0";
-        preguntas[7][0] = "¿Cuál es la sentencia correcta para crear un objeto llamado myObj de MyClass? ";
+        preguntas[7][0] = "¿Cuál es la sentencia correcta para crear un objeto llamado myObj de MyClass? en Java";
         preguntas[7][1] = "1";
-        preguntas[8][0] = "¿Cuál es el operador que se utiliza para multiplicar números?";
+        preguntas[8][0] = "¿Que operador se utiliza para la multuplicaion de numeros en Java?";
         preguntas[8][1] = "2";
-        preguntas[9][0] = "¿Cómo se inicia la sentencia if en Java?";
+        preguntas[9][0] = "De que manera de es la sintaxis de la sentacia If en Java";
         preguntas[9][1] = "0";
     }
 
     public static void incisosQuizz() {
         incisos = new String[10][3];
-        incisos[0][0] = "System.out.println( Hello World );";
-        incisos[0][1] = "echo( Hello World );";
-        incisos[0][2] = "print ( Hello World );";
+        incisos[0][0] = "System.out.println(''comentario'');";
+        incisos[0][1] = "imprimir( Hello World )";
+        incisos[0][2] = "print ('' comentario'');";
         incisos[1][0] = "/* This is a comment";
-        incisos[1][1] = "// This is a comment";
-        incisos[1][2] = "# This is a comment";
-        incisos[2][0] = "myString";
-        incisos[2][1] = "string";
+        incisos[1][1] = "// de  esta forma";
+        incisos[1][2] = "# de esta forma";
+        incisos[2][0] = "myString(texo)";
+        incisos[2][1] = "string(comentario)";
         incisos[2][2] = "String";
         incisos[3][0] = "int x = 5;";
-        incisos[3][1] = "num x = 5";
-        incisos[3][2] = "x = 5;";
-        incisos[4][0] = "><";
+        incisos[3][1] = "entero num x = 5";
+        incisos[3][2] = "double x = 5;";
+        incisos[4][0] = ">=";
         incisos[4][1] = "==";
-        incisos[4][2] = "<>";
-        incisos[5][0] = "{}";
-        incisos[5][1] = "()";
+        incisos[4][2] = "=< y >=";
+        incisos[5][0] = "{arreglo}";
+        incisos[5][1] = "(variable)";
         incisos[5][2] = "[]";
         incisos[6][0] = "class";
-        incisos[6][1] = "MyClass";
-        incisos[6][2] = "class()";
+        incisos[6][1] = "MyClass name; {";
+        incisos[6][2] = "class(name)";
         incisos[7][0] = "class MyClass = new myObj();";
         incisos[7][1] = "MyClass myObj = new MyClass();";
         incisos[7][2] = "new myObj = MyClass();";
-        incisos[8][0] = "%";
-        incisos[8][1] = "X";
+        incisos[8][0] = "**";
+        incisos[8][1] = "X o (por)";
         incisos[8][2] = "*";
-        incisos[9][0] = "if (x > y)";
-        incisos[9][1] = "if x > y;";
-        incisos[9][2] = "if x > y then;";
+        incisos[9][0] = "if (x > y) {";
+        incisos[9][1] = "(if x > y);";
+        incisos[9][2] = "if x > y then {;";
     }
-
     public static void recorrido(){
         String respuesta;
-        Scanner entrada = new Scanner(System.in);
-        
-        //entrara un bucle de la longitud de la matriz
+        Scanner st = new Scanner(System.in);
         for (int i = 0; i < preguntas.length; i++) {
-            //imprimira las preguntas con 3 posibles respuestas
             System.out.println();
             System.out.println("Pregunta " + (i + 1));
             System.out.println(preguntas[i][0]);
@@ -368,15 +300,13 @@ public class Actividad4 {
             System.out.println("1.- " + incisos[i][1]);
             System.out.println("2.- " + incisos[i][2]);
             System.out.println();
-            System.out.print("Escribe tu respuesta: ");
-            respuesta = entrada.nextLine();
-            //si la respuesta es correcta el contador aumentara
+            System.out.print("Escribe la respuesta correcta: ");
+            respuesta = st.nextLine();
             if(preguntas[i][1].equals(respuesta)){
                 contador++;
             }
         }
     }
-    
     public static int contador(){
         return contador;
     }
